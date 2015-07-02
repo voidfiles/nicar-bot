@@ -22,7 +22,7 @@ module.exports = function (robot) {
     var save = msg.match[2];
     var as = msg.match[4];
     as = as.trim();
-    console.log('yo', buildKey(as), save);
+    console.log('Saving', save, 'as', as, 'under', buildKey(as));
     if (!as || !save) {
       return;
     }
@@ -35,11 +35,15 @@ module.exports = function (robot) {
 
   robot.hear(/^(\!)(.*)$/i, function (msg) {
     var as = msg.match[2];
+
     if (!as) {
+      console.log('Snippet missing thing to lookup');
       return;
     }
 
     var save = robot.brain.get(buildKey(as));
+
+    console.log('Lookup up', as, 'under', buildKey(as), 'got', save);
 
     if (!save) {
       return;
